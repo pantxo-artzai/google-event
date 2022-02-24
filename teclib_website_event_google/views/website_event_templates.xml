@@ -1,24 +1,12 @@
 <odoo>
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Event Description Inherited">
-    <div t-if="event.organizer_id" position="attributes">
-      <attribute name="itemscope">itemscope</attribute>
-      <attribute name="itemtype">http://schema.org/Organizer</attribute>
+    <div t-field="event.organizer_id" position="attributes">
+      <attribute name="itemprop"></attribute>
     </div>
-    <span t-field="event.with_context(tz=event.date_tz).date_end" position="attributes">
+    <xpath expr="//h5[@t-field='event.with_context(tz=event.date_tz).date_end']/parent::div/h5[last()]"
+           position="attributes">
       <attribute name="itemprop">endDate</attribute>
-    </span>
-    <div t-if="event.address_id" position="attributes">
-      <attribute name="itemscope">itemscope</attribute>
-      <attribute name="itemtype">http://schema.org/Location</attribute>
-    </div>
-    <div t-field="event.address_id" position="replace">
-      <div itemscope="itemscope" itemtype="http://schema.org/Place">
-        <div itemprop="address"
-             class="mb-2"
-             t-field="event.address_id"
-             t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
-      </div>
-    </div>
+    </xpath>
   </template>
 </odoo>
