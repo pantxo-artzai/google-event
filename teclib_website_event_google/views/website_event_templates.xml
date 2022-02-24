@@ -1,11 +1,14 @@
 <odoo>
   <template id="event_description_full_inherited"
-            inhert_id="website_event.vent_description_full" name="Event Description Inherited">
+            inherit_id="website_event.event_description_full" name="Event Description Inherited">
     <div t-field="event.organizer_id" position="attributes">
       <attribute name="itemprop"></attribute>
     </div>
     <span t-field="event.with_context(tz=event.date_tz).date_end" position="attributes">
       <attribute name="itemprop">EndDate</attribute>
     </span>
+    <div t-field="event.address_id" position="attributes">
+      <attribute name="itemprop"></attribute>
+    </div>
   </template>
 </odoo>
