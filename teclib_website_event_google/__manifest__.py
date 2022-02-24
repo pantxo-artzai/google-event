@@ -12,6 +12,7 @@
     ],
     'data': [
         'views/website_templates.xml',
+        'views/website_event_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
