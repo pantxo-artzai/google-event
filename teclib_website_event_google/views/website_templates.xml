@@ -1,6 +1,6 @@
 <odoo>
   <template id="layout_inherited" name="Main layout" inherit_id="website.layout">
-    <xpath expr="//head/script[last()]" position="after">
+    <xpath expr="//div[@id='wrapwrap']" position="after">
       <t t-if="website and event">
         <script type="text/javascript">
           <t t-set="address" t-value="event.address_id"/>
