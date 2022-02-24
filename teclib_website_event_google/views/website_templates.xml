@@ -2,7 +2,7 @@
   <template id="layout_inherited" name="Main layout" inherit_id="website.layout">
     <xpath expr="//head/script[last()]" position="after">
       <t t-if="website and event">
-        <script type="text/javascript">
+        <script type="application/ld+json">
           <t t-set="address" t-value="event.address_id"/>
           {
             "@type": "Event",
