@@ -13,8 +13,8 @@
 
     <div t-field="event.address_id" position="replace">
       <div itemprop="location" itemscope="itemscope" itemtype="http://schema.org/Place">
+        <span t-field="event.address_id" style="display:none;"/>
         <span itemprop="address" class="w-100 o_force_ltr d-block">
-          <span t-field="event.address_id" style="display:none;"/>
           <span itemprop="streetAddress">
             <t t-esc="event.address_id.street"/>
             <t t-if="event.address_id.street2">
