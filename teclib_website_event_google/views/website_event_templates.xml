@@ -1,24 +1,50 @@
 <odoo>
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Event Description Inherited">
-    <!--<div t-if="event.organizer_id" position="attributes">
-      <attribute name="itemprop">organizer</attribute>
-    </div>temscope="itemscope"
-    <h4 t-field="event.organizer_id" position="attributes">
-      <attribute name="itemprop">name</attribute>
-      <attribute name="itemscope">itemscope</attribute>
-      <attribute name="itemtype">http://schema.org/Organization</attribute>
-    </h4>-->
 
-    <h4 t-field="event.organizer_id" position="after">
-
+    <h4 t-field="event.organizer_id" position="replace">
       <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
-        <span t-esc="event.organizer_id.name" itemprop="name" style="display:none;"/>
+        <h4 itemprop="name" t-field="event.organizer_id"/>
         <span itemprop="url"
-            t-esc="event.organizer_id.website"
-            style="display:none;"/>
-    </div>
+              t-esc="event.organizer_id.website"
+              style="display:none;"/>
+      </div>
     </h4>
+
+    <div t-field="event.address_id" position="replace">
+      <div itemprop="location" itemscope="itemscope" itemtype="http://schema.org/Place">
+        <span itemprop="address" class="w-100 o_force_ltr d-block">
+          <span t-field="event.address_id" style="display:none;"/>
+          <span itemprop="streetAddress">
+            <t t-esc="event.address_id.street"/>
+            <t t-if="event.address_id.street2">
+              <br/><t t-esc="event.address_id.street2"/>
+            </t>
+          </span>
+          <br/>
+          <t t-if="event.address_id.city">
+            <span itemprop="addressLocality" t-esc="event.address_id.city"/><br/>
+          </t>
+          <t t-if="event.address_id.zip">
+            <span itemprop="postalCode" t-esc="event.address_id.zip"/><br/>
+          </t>
+          <t t-if="event.address_id.state_id">
+            <span itemprop="addressRegion"
+                  t-esc="event.address_id.state_id.code"
+                  style="display:none;"/>
+            <span t-field="event.address_id.state_id"/><br/>
+          </t>
+          <t t-if="event.address_id.country_id">
+            <span itemprop="addressCountry"
+                  t-esc="event.address_id.country_id.code"
+                  style="display:none;"/>
+            <span  t-field="event.address_id.country_id"/><br/>
+          </t>
+
+        </span>
+      </div>
+
+    </div>
     <div t-field="event.organizer_id" position="replace">
       <div>
         <div t-if="event.organizer_id.phone">
