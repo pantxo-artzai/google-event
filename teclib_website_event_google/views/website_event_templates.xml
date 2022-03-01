@@ -7,12 +7,16 @@
     <h4 t-field="event.organizer_id" position="attributes">
       <attribute name="itemprop">name</attribute>
     </h4>
-
+    <h4 t-field="event.organizer_id" position="after">
+      <span itemprop="url"
+            t-esc="event.organizer_id.website"
+            style="display:none;"/>
+    </h4>
     <div t-field="event.organizer_id" position="replace">
-      <div itemscope="itemscope" itemprop="organizer">
+      <div>
         <div t-if="event.organizer_id.phone">
           <i class="fa fa-phone fa-fw mr-2"/>
-          <span itemprop="telephone" t-esc="event.organizer_id.phone"/>
+          <span t-esc="event.organizer_id.phone"/>
         </div>
         <div t-if="event.organizer_id.mobile">
           <i class="fa fa-mobile fa-fw mr-2"/>
@@ -20,13 +24,9 @@
         </div>
         <div t-if="event.organizer_id.email">
           <i class="fa fa-envelope fa-fw mr-2"/>
-          <span itemprop="email" t-esc="event.organizer_id.email"/>
-        </div>
-        <div style="display:none;">
-          <span itemprop="url" t-esc="event.organizer_id.website"/>
+          <span  t-esc="event.organizer_id.email"/>
         </div>
       </div>
-
     </div>
     <xpath expr="//h5[@t-field='event.with_context(tz=event.date_tz).date_end']/parent::div/h5[last()]"
            position="attributes">
