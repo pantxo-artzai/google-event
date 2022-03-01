@@ -8,10 +8,10 @@
     'category': 'Marketing/Events',
     'website': 'https://www.teclib-group.com/',
     'depends': [
-        'website_event',
+        'website_event_sale',
     ],
     'data': [
-       # 'views/website_templates.xml',
+        'views/website_templates.xml',
         'views/website_event_templates.xml',
     ],
     'installable': True,

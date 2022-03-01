@@ -13,7 +13,9 @@
 
     <div t-field="event.address_id" position="replace">
       <div itemprop="location" itemscope="itemscope" itemtype="http://schema.org/Place">
-        <span t-field="event.address_id" itemprop="name" style="display:none;"/>
+        <span t-field="event.address_id.name"
+              itemprop="name"
+              style="display:none;"/>
         <span itemprop="address" class="w-100 o_force_ltr d-block">
           <span itemprop="streetAddress">
             <t t-esc="event.address_id.street"/>
@@ -40,7 +42,6 @@
                   style="display:none;"/>
             <span  t-field="event.address_id.country_id"/><br/>
           </t>
-
         </span>
       </div>
 

@@ -1,36 +1,21 @@
 <odoo>
   <template id="layout_inherited" name="Main layout" inherit_id="website.layout">
-    <xpath expr="//head/script[last()]" position="after">
+    <xpath expr="//head/meta[last()]" position="after">
       <t t-if="website and event">
-        <script type="application/ld+json">
-          <t t-set="address" t-value="event.address_id"/>
-          {
-            "@type": "Event",
-            "name": "<t t-esc="event.name"/>",
-            "startDate": "<t t-esc="event.date_begin.isoformat()"/>",
-            "endDate": "<t t-esc="event.date_end.isoformat()"/>",
-            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-            "eventStatus": "https://schema.org/EventScheduled",
-            "location": {
-              "@type": "Place",
-              "name": "<t t-esc="address.name"/>",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "<t t-esc="address._display_address(without_company=True)"/>",
-                "addressLocality": "<t t-esc="address.city"/>",
-                "postalCode": "<t t-esc="address.zip"/>",
-                "addressRegion": "<t t-esc="address.state_id.code"/>",
-                "addressCountry": "<t t-esc="address.country_id.code"/>"
-              }
-            },
-            "description": "<t t-esc="event.description"/>",
-            "organizer": {
-              "@type": "Organization",
-              "name": "<t t-esc="event.organizer_id.name"/>",
-              "url": "<t t-esc="event.organizer_id.website"/>"
-            }
-          }
-        </script>
+        <t t-foreach="event.event_ticket_ids" t-as="ticket">
+          <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+            <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
+            <meta itemprop="price" t-att-content="ticket.price"/>
+            <meta itemprop="priceCurrency" t-att-content="ticket.product_id.currency_id.name"/>
+            <t t-if="ticket.end_sale_date >= datetime.date.today() and ticket.seats_max > ticket.seats_reserved">
+              <meta itemprop="availability" content="https://schema.org/InStock" />
+            </t>
+            <t t-else="">
+              <meta itemprop="availability" content="https://schema.org/SoldOut" />
+            </t>
+            <meta itemprop="validFrom" t-att-content="ticket.start_sale_date"/>
+          </div>
+        </t>
       </t>
     </xpath>
   </template>
