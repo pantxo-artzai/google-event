@@ -13,7 +13,7 @@
     <h4 t-field="event.organizer_id" position="after">
 
       <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
-        <span t-esc="event.organize_id.name" itemprop="name" style="display:none;"/>
+        <span t-esc="event.organizer_id.name" itemprop="name" style="display:none;"/>
         <span itemprop="url"
             t-esc="event.organizer_id.website"
             style="display:none;"/>
