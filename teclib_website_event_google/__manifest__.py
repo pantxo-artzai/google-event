@@ -11,7 +11,7 @@
         'website_event',
     ],
     'data': [
-        'views/website_templates.xml',
+       # 'views/website_templates.xml',
         'views/website_event_templates.xml',
     ],
     'installable': True,
