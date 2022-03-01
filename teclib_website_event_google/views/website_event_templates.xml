@@ -1,16 +1,23 @@
 <odoo>
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Event Description Inherited">
-    <div t-if="event.organizer_id" position="attributes">
+    <!--<div t-if="event.organizer_id" position="attributes">
       <attribute name="itemprop">organizer</attribute>
-    </div>
+    </div>temscope="itemscope"
     <h4 t-field="event.organizer_id" position="attributes">
       <attribute name="itemprop">name</attribute>
-    </h4>
+      <attribute name="itemscope">itemscope</attribute>
+      <attribute name="itemtype">http://schema.org/Organization</attribute>
+    </h4>-->
+
     <h4 t-field="event.organizer_id" position="after">
-      <span itemprop="url"
+
+      <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
+        <span t-esc="event.organize_id.name" itemprop="name" style="display:none;"/>
+        <span itemprop="url"
             t-esc="event.organizer_id.website"
             style="display:none;"/>
+    </div>
     </h4>
     <div t-field="event.organizer_id" position="replace">
       <div>
