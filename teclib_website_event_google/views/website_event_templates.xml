@@ -2,7 +2,7 @@
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Event Description Inherited">
     <div t-field="event.organizer_id" position="replace">
-      <div itemscope="itemscope"
+      <div itemscope="itemscope" itemprop="organizer"
            itemtype="http://schema.org/Organizer">
         <div t-if="event.organizer_id.phone" itemscope="itemscope"
            itemtype="http://schema.org/Organization">
