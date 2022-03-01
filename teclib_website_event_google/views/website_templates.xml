@@ -2,20 +2,27 @@
   <template id="layout_inherited" name="Main layout" inherit_id="website.layout">
     <xpath expr="//head/meta[last()]" position="after">
       <t t-if="website and event">
-        <t t-foreach="event.event_ticket_ids" t-as="ticket">
-          <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
-            <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
-            <meta itemprop="price" t-att-content="ticket.price"/>
-            <meta itemprop="priceCurrency" t-att-content="ticket.product_id.currency_id.name"/>
-            <t t-if="ticket.end_sale_date >= datetime.date.today() and ticket.seats_max > ticket.seats_reserved">
-              <meta itemprop="availability" content="https://schema.org/InStock" />
-            </t>
-            <t t-else="">
-              <meta itemprop="availability" content="https://schema.org/SoldOut" />
-            </t>
-            <meta itemprop="validFrom" t-att-content="ticket.start_sale_date"/>
-          </div>
-        </t>
+
+        <div itemprop="offers">
+          <meta itemprop="lowPrice" t-att-content="min(event.event_ticket_ids.mapped('price'))"/>
+          <meta itemprop="validFrom" t-att-content="min(event.event_ticket_ids.mapped('start_sale_date'))"/>
+          <meta itemprop="highPrice" t-att-content="max(event.event_ticket_ids.mapped('price'))"/>
+          <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
+          <t t-foreach="event.event_ticket_ids" t-as="ticket">
+            <div itemprop="offer">
+              <meta itemprop="price" t-att-content="ticket.price"/>
+              <meta itemprop="priceCurrency" t-att-content="ticket.product_id.currency_id.name"/>
+              <t t-if="ticket.end_sale_date >= datetime.date.today() and ticket.seats_max > ticket.seats_reserved">
+                <meta itemprop="availability" content="https://schema.org/InStock" />
+              </t>
+              <t t-else="">
+                <meta itemprop="availability" content="https://schema.org/SoldOut" />
+              </t>
+              <meta itemprop="validFrom" t-att-content="ticket.start_sale_date"/>
+            </div>
+          </t>
+        </div>
+
       </t>
     </xpath>
   </template>
