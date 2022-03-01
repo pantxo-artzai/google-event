@@ -3,11 +3,13 @@
     <xpath expr="//head/meta[last()]" position="after">
       <t t-if="website and event">
 
-        <div itemprop="offers">
+        <div itemprop="offers" itemscope="itemscope" itemtype="https://schema.org/AggregateOffer">
           <meta itemprop="lowPrice" t-att-content="min(event.event_ticket_ids.mapped('price'))"/>
           <meta itemprop="validFrom" t-att-content="min(event.event_ticket_ids.mapped('start_sale_date'))"/>
           <meta itemprop="highPrice" t-att-content="max(event.event_ticket_ids.mapped('price'))"/>
           <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
+        </div>
+        <div itemprop="offers" itemscope="itemscope" itemtype="https://schema.org/Offer">
           <t t-foreach="event.event_ticket_ids" t-as="ticket">
             <div itemprop="offer">
               <meta itemprop="price" t-att-content="ticket.price"/>
@@ -22,7 +24,6 @@
             </div>
           </t>
         </div>
-
       </t>
     </xpath>
   </template>
