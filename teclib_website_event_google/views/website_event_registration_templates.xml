@@ -1,0 +1,19 @@
+<odoo>
+  <template id="registration_template"
+            inherit_id="website_event_sale.registration_template"
+            name="Teclib Registration Inherited">
+    <form id="registration_form" position="attributes">
+      <attribute name="itemtype">http://schema.org/Offer</attribute>
+    </form>
+    <input name="csrf_token" position="after">
+      <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
+      <t t-if="event.event_registrations_open" class="text-danger">
+        <meta itemprop="availability" content="https://schema.org/InStock"/>
+      </t>
+      <t t-else="">
+        <meta itemprop="availability" content="https://schema.org/SoldOut"/>
+      </t>
+      <meta itemprop="validFrom" t-att-content="event.start_sale_date"/>
+    </input>
+  </template>
+</odoo>
