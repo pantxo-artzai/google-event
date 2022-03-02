@@ -1,6 +1,6 @@
 <odoo>
   <template id="event_description_full_inherited"
-            inherit_id="website_event.event_description_full" name="Event Description Inherited">
+            inherit_id="website_event.event_description_full" name="Teclib Event Description Inherited">
 
     <h4 t-field="event.organizer_id" position="replace">
       <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
@@ -66,5 +66,25 @@
            position="attributes">
       <attribute name="itemprop">endDate</attribute>
     </xpath>
+  </template>
+
+  <template id="registration_template"
+            inherit_id="website_event_sale.registration_template"
+            name="Teclib Registration Inherited">
+    <form id="registration_form" position="attributes">
+      <attribute name="itemtype">http://schema.org/Offer</attribute>
+    </form>
+    <span t-field="ticket.start_sale_date" position="attributes">
+      <attribute name="itemprop">validFrom</attribute>
+    </span>
+    <input name="csrf_token" position="after">
+      <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
+      <t t-if="event.event_registrations_open" class="text-danger">
+        <meta itemprop="availability" content="https://schema.org/InStock" />
+      </t>
+      <t t-else="">
+        <meta itemprop="availability" content="https://schema.org/SoldOut" />
+      </t>
+    </input>
   </template>
 </odoo>
