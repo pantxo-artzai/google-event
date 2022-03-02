@@ -2,16 +2,20 @@
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Teclib Event Description Inherited">
 
-    <h4 t-field="event.organizer_id" position="before">
+    <h4 t-field="event.organizer_id" position="replace">
       <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
-        <meta itemprop="name" t-att-content="event.organizer_id"/>
-        <meta itemprop="url" t-att-content="event.organizer_id.website"/>
+        <h4 itemprop="name" t-field="event.organizer_id"/>
+        <span itemprop="url"
+              t-esc="event.organizer_id.website"
+              style="display:none;"/>
       </div>
     </h4>
 
     <div t-field="event.address_id" position="replace">
       <div itemprop="location" itemscope="itemscope" itemtype="http://schema.org/Place">
-        <meta itemprop="name" t-att-content="event.address_id.name"/>
+        <span t-field="event.address_id.name"
+              itemprop="name"
+              style="display:none;"/>
         <span itemprop="address" class="w-100 o_force_ltr d-block">
           <span itemprop="streetAddress">
             <t t-esc="event.address_id.street"/>
@@ -27,12 +31,15 @@
             <span itemprop="postalCode" t-esc="event.address_id.zip"/><br/>
           </t>
           <t t-if="event.address_id.state_id">
-            <meta itemprop="addressRegion" t-att-content="event.address_id.state_id.code"/>
+            <span itemprop="addressRegion"
+                  t-esc="event.address_id.state_id.code"
+                  style="display:none;"/>
             <span t-field="event.address_id.state_id"/><br/>
           </t>
           <t t-if="event.address_id.country_id">
-            <meta itemprop="addressCountry"
-                  t-att-content="event.address_id.country_id.code"/>
+            <span itemprop="addressCountry"
+                  t-esc="event.address_id.country_id.code"
+                  style="display:none;"/>
             <span  t-field="event.address_id.country_id"/><br/>
           </t>
         </span>
