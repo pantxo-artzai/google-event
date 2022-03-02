@@ -2,20 +2,16 @@
   <template id="event_description_full_inherited"
             inherit_id="website_event.event_description_full" name="Teclib Event Description Inherited">
 
-    <h4 t-field="event.organizer_id" position="replace">
+    <h4 t-field="event.organizer_id" position="before">
       <div itemprop="organizer" itemscope="itemscope" itemtype="http://schema.org/Organization">
-        <h4 itemprop="name" t-field="event.organizer_id"/>
-        <span itemprop="url"
-              t-esc="event.organizer_id.website"
-              style="display:none;"/>
+        <meta itemprop="name" t-att-content="event.organizer_id"/>
+        <meta itemprop="url" t-att-content="event.organizer_id.website"/>
       </div>
     </h4>
 
     <div t-field="event.address_id" position="replace">
       <div itemprop="location" itemscope="itemscope" itemtype="http://schema.org/Place">
-        <span t-field="event.address_id.name"
-              itemprop="name"
-              style="display:none;"/>
+        <meta itemprop="name" t-att-content="event.address_id.name"/>
         <span itemprop="address" class="w-100 o_force_ltr d-block">
           <span itemprop="streetAddress">
             <t t-esc="event.address_id.street"/>
@@ -31,21 +27,18 @@
             <span itemprop="postalCode" t-esc="event.address_id.zip"/><br/>
           </t>
           <t t-if="event.address_id.state_id">
-            <span itemprop="addressRegion"
-                  t-esc="event.address_id.state_id.code"
-                  style="display:none;"/>
+            <meta itemprop="addressRegion" t-att-content="event.address_id.state_id.code"/>
             <span t-field="event.address_id.state_id"/><br/>
           </t>
           <t t-if="event.address_id.country_id">
-            <span itemprop="addressCountry"
-                  t-esc="event.address_id.country_id.code"
-                  style="display:none;"/>
+            <meta itemprop="addressCountry"
+                  t-att-content="event.address_id.country_id.code"/>
             <span  t-field="event.address_id.country_id"/><br/>
           </t>
         </span>
       </div>
-
     </div>
+
     <div t-field="event.organizer_id" position="replace">
       <div>
         <div t-if="event.organizer_id.phone">
@@ -62,29 +55,11 @@
         </div>
       </div>
     </div>
+
     <xpath expr="//h5[@t-field='event.with_context(tz=event.date_tz).date_end']/parent::div/h5[last()]"
            position="attributes">
       <attribute name="itemprop">endDate</attribute>
     </xpath>
   </template>
 
-  <template id="registration_template"
-            inherit_id="website_event_sale.registration_template"
-            name="Teclib Registration Inherited">
-    <form id="registration_form" position="attributes">
-      <attribute name="itemtype">http://schema.org/Offer</attribute>
-    </form>
-    <span t-field="ticket.start_sale_date" position="attributes">
-      <attribute name="itemprop">validFrom</attribute>
-    </span>
-    <input name="csrf_token" position="after">
-      <link itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"/>
-      <t t-if="event.event_registrations_open" class="text-danger">
-        <meta itemprop="availability" content="https://schema.org/InStock" />
-      </t>
-      <t t-else="">
-        <meta itemprop="availability" content="https://schema.org/SoldOut" />
-      </t>
-    </input>
-  </template>
 </odoo>
